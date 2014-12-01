@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>AJAX 사용 후</h1>
+<form>
+<input type="text" name="a">
+<select name="op">
+	<option>+</option>
+	<option>-</option>
+</select>
+<input type="text" name="b">
+<input id="btn1" type="button" value="=">
+<input id="result" type="text" name="result">
+</form>
+<script type="text/javascript">
+document.getElementById("btn1").onclick=function(event){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				// 1) result 입력상자를 찾는다.
+				var resultInput=document.getElementById("result");
+				// 2) 그 상자에 결과값을 넣는다.
+				resultInput.value=xhr.responseText;
+			} else {
+				alert("서버 요청 오류");
+				console.log(xhr.responseText);
+			}
+		}
+	};
+	xhr.open("GET", "compute2.jsp", true);
+	xhr.send();
+};
+</script>
+</body>
+</html>
